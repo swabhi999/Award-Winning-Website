@@ -1,12 +1,9 @@
-import React, { useEffect, useRef } from "react";
-import { useState } from "react";
-import Video from "./Video";
+import React, { useEffect, useRef, useState } from "react";
 import Button from "./Button";
 import { TiLocationArrow } from "react-icons/ti";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/all";
-import { SplitText } from "gsap/SplitText";
 
 const Hero = () => {
   const [currentIndex, setCurrentIndex] = useState(1);
@@ -16,11 +13,11 @@ const Hero = () => {
 
   const totalVideos = 3;
   const currentVideoRef = useRef(null);
-const nextVideoRef = useRef(null);
+  const nextVideoRef = useRef(null);
 
 
 
-  gsap.registerPlugin(ScrollTrigger)
+  gsap.registerPlugin(ScrollTrigger);
 
   useGSAP(
     () => {
@@ -34,7 +31,13 @@ const nextVideoRef = useRef(null);
           height: "100%",
           duration: 1,
           ease: "power1.inOut",
-          onStart: () => nextVideoRef.current.play(),
+          onStart: () => {
+            if (nextVideoRef.current) {
+              nextVideoRef.current.play().catch((error) => {
+                console.error("Error playing video:", error);
+              });
+            }
+          },
         });
 
         gsap.from("#current-video", {
@@ -50,8 +53,8 @@ const nextVideoRef = useRef(null);
 
 
   useEffect(() => {
-    if (LoadedVideos ===totalVideos-1) {
-      console.log("loaded",LoadedVideos)
+    if (LoadedVideos === totalVideos - 1) {
+      console.log("loaded", LoadedVideos);
       setIsLoading(false);
     }
   }, [LoadedVideos]);
@@ -135,7 +138,7 @@ const nextVideoRef = useRef(null);
           />
           <video
             src={getVideoSrc(
-              currentIndex === totalVideos -1 ? 1 : currentIndex
+              currentIndex === totalVideos - 1 ? 1 : currentIndex
             )}
             muted
             loop

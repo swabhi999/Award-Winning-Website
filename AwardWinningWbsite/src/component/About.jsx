@@ -38,8 +38,8 @@ gsap.registerPlugin(ScrollTrigger)
         </h2>
 
         <AnimatedTitle
-        title="disc<b>o</b>ver the world's
-          <br />l<b>a</b>rgest adventure"
+        title="discover the  world's
+          largest adventure"
           containerClass='mt-5 !text-black text-center'
         />
         <div className="about-subtext">
