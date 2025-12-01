@@ -1,8 +1,7 @@
-import React, { useRef } from "react";
-import { useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 
-const AnimatedTitle = ({ title, containerClass }) => {
+const AnimatedTitle = ({ title, containerClass = "" }) => {
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -28,15 +27,18 @@ const AnimatedTitle = ({ title, containerClass }) => {
   }, []);
 
   return (
-    <div ref={containerRef} className={` animated-title ${containerClass}`}>
-      {title.split("<br/>").map((line, index) => (
+    <div
+      ref={containerRef}
+      className={`animated-title ${containerClass}`.trim()}
+    >
+      {title.split("<br />").map((line, index) => (
         <div
           key={index}
-          className="flex-center max-w-full flex-wrap gap-2 px-10 md:gap-2"
+          className="flex-center max-w-full flex-wrap gap-2 px-10 md:gap-3"
         >
-          {line.split("").map((word, i) => (
+          {line.split(" ").map((word, idx) => (
             <span
-              key={i}
+              key={idx}
               className="animated-word"
               dangerouslySetInnerHTML={{ __html: word }}
             />
